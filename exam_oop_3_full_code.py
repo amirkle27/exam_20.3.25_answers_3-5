@@ -29,7 +29,9 @@ class CardSuit(enum.Enum):
     SPADES = 4
 
     def __eq__(self, other):
-        if isinstance(other, CardSuit):
+        if not isinstance(other, CardSuit):
+             return NotImplemented
+        else:
             return self.value == other.value
 
     def __lt__(self, other):
@@ -104,7 +106,7 @@ class Card:
         return "?"
 
     def __repr__(self):
-        return (f"Card(suit = {self._suit}, rank = {self._rank}, face_up = True)")
+        return (f"Card(suit = {self._suit}, rank = {self._rank}, face_up = {self._face_up})")
 
     @property
     def suit(self):
@@ -167,7 +169,7 @@ class Deck(DeckCheatingError):
             else:
                 return "Empty Deck"
 
-    def add_Card(self,card):
+    def add_card(self,card):
         self._cards.append(card)
 
 ace_of_spades = Card(CardSuit.SPADES, CardRank.ACE)
